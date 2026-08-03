@@ -27,6 +27,14 @@ updateBirthdayGate();
 if(gate&&!previewUnlocked&&Date.now()<BIRTHDAY_UNLOCK)gateTimer=setInterval(updateBirthdayGate,1000);
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];const song=$('#song'),musicBtn=$('#musicBtn'),musicLabel=$('#musicLabel');let fadeTimer;
+// Al pulsar “Volver a vivirlo”, la portada reaparece sin mostrar otra vez el botón Comenzar.
+const replayWithoutStart=sessionStorage.getItem('yulissaReplayWithoutStart')==='1';
+if(replayWithoutStart){
+  sessionStorage.removeItem('yulissaReplayWithoutStart');
+  document.body.classList.add('replay-clean');
+  const roseHint=$('#firstRose small');
+  if(roseHint)roseHint.textContent='Toca la rosa';
+}
 function fadeTo(target,duration=1300){clearInterval(fadeTimer);const start=song.volume,steps=30,delta=(target-start)/steps;let i=0;fadeTimer=setInterval(()=>{i++;song.volume=Math.max(0,Math.min(1,start+delta*i));if(i>=steps)clearInterval(fadeTimer)},duration/steps)}
 async function playMusic(){try{song.volume=0;await song.play();musicBtn.classList.add('show','playing');musicLabel.textContent='Pausar';fadeTo(.72,1800)}catch(e){musicBtn.classList.add('show');musicLabel.textContent='Reproducir'}}
 musicBtn.onclick=async()=>{if(song.paused){await song.play();fadeTo(.72,700);musicBtn.classList.add('playing');musicLabel.textContent='Pausar'}else{fadeTo(0,350);setTimeout(()=>song.pause(),380);musicBtn.classList.remove('playing');musicLabel.textContent='Reproducir'}};
@@ -42,7 +50,13 @@ const dlg=$('#photoDialog');$$('.photo').forEach(f=>f.onclick=()=>{$('#dialogImg
 $('#roseBtn').onclick=()=>{$('#roseBtn').classList.add('bloomed');$('#birthday').classList.add('show');burst(110);setTimeout(()=>{fadeTo(.52,1200);$('#night').scrollIntoView({behavior:'smooth'});setTimeout(()=>$('.constellation').classList.add('show'),1000)},3200)};
 $('#giftBtn').onclick=()=>{fadeTo(.3,1100);$('#mirrorScene').classList.add('open');$('#mirrorScene').setAttribute('aria-hidden','false');setTimeout(()=>$('#mirrorScene').scrollIntoView({behavior:'smooth'}),100)};
 $('#gift').onclick=()=>{$('#gift').classList.add('open');burst(140);welcomeConfetti(45);setTimeout(()=>{$$('#fx .fall').forEach(x=>x.classList.add('final-heart-rain'));$('#gift').style.display='none';$('.gift-hint').style.display='none';$('#mirrorCard').classList.add('show');fadeTo(.18,1800)},850)};
-$('#replayBtn').onclick=()=>{location.hash='';scrollTo({top:0,behavior:'smooth'});setTimeout(()=>location.reload(),900)};
+$('#replayBtn').onclick=()=>{
+  sessionStorage.setItem('yulissaReplayWithoutStart','1');
+  try{song.pause();song.currentTime=0}catch(e){}
+  location.hash='';
+  scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>location.reload(),900)
+};
 const canvas=$('#stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){const d=devicePixelRatio||1;canvas.width=canvas.clientWidth*d;canvas.height=canvas.clientHeight*d;ctx.setTransform(d,0,0,d,0,0);stars=Array.from({length:150},()=>({x:Math.random()*canvas.clientWidth,y:Math.random()*canvas.clientHeight,r:Math.random()*1.6+.25,a:Math.random(),v:Math.random()*.018+.004}))}resize();addEventListener('resize',resize);(function draw(){ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight);for(const s of stars){s.a+=s.v;if(s.a>1||s.a<.12)s.v*=-1;ctx.fillStyle=`rgba(255,255,255,${s.a})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}requestAnimationFrame(draw)})();// Nuevas páginas: cada fotografía guarda una frase y una pequeña reacción.
 document.querySelectorAll('.book-page').forEach(page=>{
   page.addEventListener('click',()=>{

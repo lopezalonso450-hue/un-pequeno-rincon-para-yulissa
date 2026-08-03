@@ -72,3 +72,7 @@ body.date-locked{overflow:hidden}
 @keyframes confettiDrop{to{transform:translate(var(--dx),105vh) rotate(760deg);opacity:.15}}
 .final-heart-rain{animation-duration:10s!important}
 @media(max-width:520px){.welcome-card{width:88vw}.start-experience{padding:12px 26px}.first-rose{bottom:4vh}}
+
+/* Repetición limpia: oculta el botón Comenzar al volver al inicio. */
+.replay-clean .start-experience{display:none!important}
+.replay-clean .first-rose{bottom:7vh}
