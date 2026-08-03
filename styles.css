@@ -49,3 +49,26 @@ body.date-locked{overflow:hidden}
 .date-gate.birthday .gate-card{animation:gateCelebrate 1.3s ease both}
 @keyframes gateCelebrate{50%{transform:scale(1.035);box-shadow:0 0 100px #e16d9666}}
 @media(max-width:520px){.gate-card{border-radius:24px}.countdown{gap:6px}.countdown div{border-radius:13px}.gate-copy{margin-bottom:1.25rem}}
+
+
+/* Mejora de bienvenida morada */
+.purple-sparkles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;background-image:radial-gradient(circle at 12% 20%,#dca8ff 0 1px,transparent 2px),radial-gradient(circle at 74% 17%,#fff 0 1px,transparent 2px),radial-gradient(circle at 86% 68%,#b85cff 0 1.5px,transparent 3px),radial-gradient(circle at 27% 76%,#fff 0 1px,transparent 2px);background-size:170px 170px,230px 230px,290px 290px,210px 210px;animation:sparkleDrift 12s linear infinite;opacity:.58}
+@keyframes sparkleDrift{50%{transform:translate3d(8px,-14px,0);opacity:.85}to{transform:translate3d(0,-28px,0)}}
+.welcome-card{position:relative;z-index:3;max-width:690px;background:linear-gradient(145deg,#2d1230a6,#160b1ecc);border:1px solid #dba8ff38;border-radius:30px;padding:clamp(28px,7vw,58px);box-shadow:0 30px 90px #0009,inset 0 1px #fff2;backdrop-filter:blur(12px)}
+.surprise-line{color:#efd7ff!important;letter-spacing:.05em}
+.start-experience{margin:28px auto 0;border:1px solid #efd7ff70;border-radius:999px;background:linear-gradient(135deg,#8134a8,#4c1768);color:#fff;padding:13px 30px;display:grid;gap:3px;box-shadow:0 12px 35px #7e2ca866,0 0 35px #bd67ef33;cursor:pointer;transition:.35s}
+.start-experience span{font:600 1rem Montserrat;letter-spacing:.12em;text-transform:uppercase}
+.start-experience small{font:.72rem Montserrat;opacity:.72}
+.start-experience:hover,.start-experience:active{transform:translateY(-3px) scale(1.025);box-shadow:0 18px 42px #7e2ca888,0 0 48px #c878f066}
+.prologue.started .welcome-card{animation:welcomeOut .9s ease forwards}
+@keyframes welcomeOut{to{opacity:0;transform:translateY(-22px) scale(.97)}}
+/* Transiciones fotográficas suaves */
+.photo img,.book-page img,.ribbon img,.hero-image img{transition:filter .8s ease,transform 1.2s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.photo.visible img,.book-page.visible img,.ribbon.visible img,.hero.visible .hero-image img{animation:photoBreath 1.4s both}
+@keyframes photoBreath{from{opacity:.15;transform:scale(1.045)}to{opacity:1;transform:scale(1)}}
+.photo:hover img,.book-page:hover img{transform:scale(1.025)}
+/* Confeti de bienvenida */
+.confetti-piece{position:fixed;z-index:300;top:-25px;left:var(--x);width:9px;height:16px;border-radius:3px;background:var(--c);pointer-events:none;animation:confettiDrop var(--t) cubic-bezier(.15,.65,.35,1) forwards;transform:rotate(var(--r))}
+@keyframes confettiDrop{to{transform:translate(var(--dx),105vh) rotate(760deg);opacity:.15}}
+.final-heart-rain{animation-duration:10s!important}
+@media(max-width:520px){.welcome-card{width:88vw}.start-experience{padding:12px 26px}.first-rose{bottom:4vh}}
