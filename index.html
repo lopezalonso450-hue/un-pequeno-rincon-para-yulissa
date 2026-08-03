@@ -1,6 +1,6 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#16090f"><meta name="description" content="Una carta hecha especialmente para Yulissa."><title>Para Yulissa — Una experiencia hecha para ti 🌹</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head><body class="date-locked">
 <div id="dateGate" class="date-gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-  <div class="gate-stars" aria-hidden="true"></div>
+  <div class="gate-stars" aria-hidden="true"></div><div class="gate-floaters" id="gateFloaters" aria-hidden="true"></div>
   <div class="gate-card">
     <div class="gate-rose" aria-hidden="true">🌹</div>
     <p class="gate-kicker">Un pequeño rincón está esperando su momento</p>
@@ -13,7 +13,7 @@
       <div><strong id="countSeconds">00</strong><span>segundos</span></div>
     </div>
     <p class="gate-date">Se abrirá el <strong>19 de agosto de 2026</strong> a las 12:00 a. m. ❤️</p>
-    <p class="gate-note">Vuelve ese día. La sorpresa se desbloqueará automáticamente.</p>
+    <p class="gate-note">Vuelve ese día. La sorpresa se desbloqueará automáticamente.</p><p class="gate-touch-hint">Toca la pantalla para recibir un pequeño mensaje 💜</p><p class="gate-touch-message" id="gateTouchMessage" aria-live="polite"></p>
   </div>
 </div>
 <audio id="song" loop preload="auto"><source src="flor-de-capomo.mp3" type="audio/mpeg"></audio><div id="fx" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="progress" id="progress"></div>
@@ -76,7 +76,7 @@
   </div>
 </section>
 <section class="bloom chapter reveal" id="bloom"><span class="eyebrow">Todavía falta algo</span><h2>Una flor para tus 27</h2><p>Tócala y pide un deseo.</p><button class="rose" id="roseBtn" aria-label="Hacer florecer"><span>🌹</span></button><div class="birthday" id="birthday"><small>Hoy celebramos</small><h2>27 años de Yulissa</h2><p>Que la vida te abrace bonito y te sorprenda mucho más de lo que imaginas.</p></div></section>
-<section class="night chapter" id="night"><canvas id="stars"></canvas><div class="moon"></div><div class="constellation" aria-hidden="true"><span>Y</span><span>u</span><span>l</span><span>i</span><span>s</span><span>s</span><span>a</span></div><div class="night-copy reveal"><p>Hay regalos que se guardan en una caja…</p><h2>y otros que se quedan viviendo en un recuerdo.</h2><p>Espero que este pequeño rincón te recuerde lo especial que eres cada vez que quieras volver a sonreír.</p><strong>Feliz cumpleaños, Yulissa. ❤️</strong><button class="last-detail" id="giftBtn">Un último detalle…</button></div></section>
+<section class="night chapter" id="night"><canvas id="stars"></canvas><div class="moon"></div><div class="constellation" aria-hidden="true"><span>Y</span><span>u</span><span>l</span><span>i</span><span>s</span><span>s</span><span>a</span></div><div class="night-copy reveal"><p>Hay regalos que se guardan en una caja…</p><h2>y otros que se quedan viviendo en un recuerdo.</h2><p>Espero que este pequeño rincón te recuerde lo especial que eres cada vez que quieras volver a sonreír.</p><strong class="final-birthday-title" id="finalBirthdayTitle">Feliz cumpleaños, Yulissa. ❤️</strong><button class="last-detail" id="giftBtn">Un último detalle…</button></div></section>
 <section class="mirror-scene" id="mirrorScene" aria-hidden="true"><button class="gift" id="gift"><span class="lid"></span><span class="box"></span><span class="bow">🎀</span></button><p class="gift-hint">Toca el regalo</p><div class="mirror-card" id="mirrorCard"><div class="mirror"><div class="shine"></div><p>El regalo más bonito de esta página</p><strong>siempre fuiste tú.</strong></div><p class="closing">Si llegaste hasta aquí, gracias por regalarle unos minutos a este pequeño rincón. Ojalá vuelvas a él cuando necesites recordar lo especial que eres.</p><button id="replayBtn">Volver a vivirlo</button></div></section>
 </main>
 <dialog id="photoDialog"><button id="closeDialog" aria-label="Cerrar">×</button><img id="dialogImg" alt="Foto ampliada"><p id="dialogText"></p></dialog><script src="script.js"></script></body></html>

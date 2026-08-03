@@ -76,3 +76,23 @@ body.date-locked{overflow:hidden}
 /* Repetición limpia: oculta el botón Comenzar al volver al inicio. */
 .replay-clean .start-experience{display:none!important}
 .replay-clean .first-rose{bottom:7vh}
+
+/* Detalles interactivos de la pantalla bloqueada */
+.gate-floaters{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.gate-floater{position:absolute;bottom:-50px;left:var(--left);font-size:var(--size);opacity:0;filter:drop-shadow(0 5px 10px #0005);animation:gateFloat var(--duration) ease-in forwards}
+@keyframes gateFloat{0%{opacity:0;transform:translate3d(0,20px,0) rotate(0deg) scale(.75)}15%{opacity:.72}80%{opacity:.48}100%{opacity:0;transform:translate3d(var(--drift),-112vh,0) rotate(280deg) scale(1.12)}}
+.gate-touch-hint{margin:.9rem 0 0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#e9c8f5;opacity:.72;animation:hintPulse 2.4s ease-in-out infinite}
+@keyframes hintPulse{50%{opacity:1;text-shadow:0 0 15px #d98cff}}
+.gate-touch-message{min-height:2.2rem;margin:.65rem 0 0;font:clamp(1.25rem,5vw,1.85rem) 'Great Vibes',cursive;color:#ffd8f7;text-shadow:0 0 18px #a74bd8;opacity:0;transform:translateY(8px);transition:.35s ease}
+.gate-touch-message.show{opacity:1;transform:none}
+.gate-touch-pop{position:fixed;z-index:10002;pointer-events:none;font-size:var(--size);animation:gatePop 1.6s ease-out forwards;filter:drop-shadow(0 4px 7px #0005)}
+@keyframes gatePop{0%{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(0)}25%{opacity:1;transform:translate(-50%,-70%) scale(1.15) rotate(18deg)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% - 130px)) scale(.7) rotate(150deg)}}
+
+/* Celebración del mensaje de cumpleaños */
+.celebration-pop{position:fixed;z-index:140;pointer-events:none;left:var(--left);top:105vh;font-size:var(--size);animation:celebrateRise var(--duration) cubic-bezier(.15,.7,.25,1) forwards;filter:drop-shadow(0 5px 8px #0005)}
+@keyframes celebrateRise{0%{opacity:0;transform:translateY(0) rotate(0) scale(.55)}12%{opacity:1}75%{opacity:.95}100%{opacity:0;transform:translate(var(--drift),-125vh) rotate(var(--rotation)) scale(1.15)}}
+.final-birthday-title{position:relative;animation:birthdayGlow 2.2s ease-in-out infinite}
+@keyframes birthdayGlow{50%{color:#fff0f8;text-shadow:0 0 12px #ff9bc5,0 0 35px #d963ff;transform:scale(1.025)}}
+.birthday.show h2{animation:birthdayEntrance 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes birthdayEntrance{0%{opacity:0;transform:scale(.7) translateY(18px)}60%{transform:scale(1.08) translateY(-4px)}100%{opacity:1;transform:none}}
+@media(max-width:520px){.gate-touch-message{min-height:2.6rem}.gate-touch-hint{font-size:.62rem}}
