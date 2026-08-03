@@ -1,3 +1,69 @@
+// Acceso con contraseña. Esta capa aparece antes que cualquier otro contenido.
+const ACCESS_PASSWORD = '1908';
+const accessGate = document.querySelector('#accessGate');
+const accessForm = document.querySelector('#accessForm');
+const accessInput = document.querySelector('#accessPassword');
+const accessError = document.querySelector('#accessError');
+const lockWrap = document.querySelector('#lockWrap');
+let accessBusy = false;
+
+function accessParticleBurst(count=48){
+  const layer=document.querySelector('#accessSparkles');
+  if(!layer)return;
+  const icons=['✨','💜','💗','🌸','🌹','✦'];
+  for(let i=0;i<count;i++)setTimeout(()=>{
+    const p=document.createElement('span');
+    p.className='access-particle';
+    p.textContent=icons[Math.floor(Math.random()*icons.length)];
+    p.style.setProperty('--x',(15+Math.random()*70)+'vw');
+    p.style.setProperty('--y',(25+Math.random()*50)+'vh');
+    p.style.setProperty('--dx',(-160+Math.random()*320)+'px');
+    p.style.setProperty('--dy',(-190+Math.random()*130)+'px');
+    p.style.setProperty('--size',(14+Math.random()*22)+'px');
+    p.style.setProperty('--delay',(Math.random()*.2)+'s');
+    layer.appendChild(p);
+    setTimeout(()=>p.remove(),2400);
+  },i*18);
+}
+
+function removeDateGateAfterPassword(){
+  try{clearInterval(gateTimer)}catch(e){}
+  document.body.classList.remove('date-locked');
+  if(gate){gate.classList.add('unlocked');setTimeout(()=>gate.remove(),250)}
+}
+
+async function unlockAccess(){
+  if(accessBusy)return;
+  accessBusy=true;
+  accessError.textContent='';
+  accessGate.classList.add('success');
+  lockWrap.classList.add('open');
+  accessParticleBurst(70);
+  removeDateGateAfterPassword();
+  document.body.classList.remove('access-locked');
+  // La pulsación del botón cuenta como interacción del usuario y permite iniciar el audio.
+  try{await beginExperience()}catch(e){}
+  setTimeout(()=>accessGate.classList.add('leaving'),650);
+  setTimeout(()=>accessGate.remove(),1750);
+}
+
+if(accessForm){
+  setTimeout(()=>accessInput && accessInput.focus({preventScroll:true}),450);
+  accessForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(accessBusy)return;
+    if((accessInput.value||'').trim()===ACCESS_PASSWORD){
+      unlockAccess();
+    }else{
+      accessError.textContent='Contraseña incorrecta. Inténtalo nuevamente.';
+      accessGate.classList.remove('shake');void accessGate.offsetWidth;accessGate.classList.add('shake');
+      accessInput.select();
+      setTimeout(()=>accessGate.classList.remove('shake'),520);
+    }
+  });
+  accessInput.addEventListener('input',()=>{accessError.textContent='';accessInput.value=accessInput.value.replace(/\D/g,'').slice(0,4)});
+}
+
 // Bloqueo por fecha: 19 de agosto de 2026, 00:00 (hora del centro de México).
 const BIRTHDAY_UNLOCK = new Date('2026-08-19T00:00:00-06:00').getTime();
 const gate = document.querySelector('#dateGate');
