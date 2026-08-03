@@ -297,3 +297,56 @@ body.access-locked>:not(#accessGate){visibility:hidden!important}
 @keyframes accessBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}18%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(230deg) scale(1.15)}}
 @media(max-width:560px){.access-card{border-radius:25px}.access-form{grid-template-columns:1fr}.access-form button{width:100%}.access-hint{margin-top:12px}}
 @media(prefers-reduced-motion:reduce){.lock-wrap,.access-bg,.lock-glow{animation:none!important}.access-gate.success .access-card{animation-duration:.2s!important}}
+
+/* =========================================================
+   FLUJO CORREGIDO: contraseña → rosa → sobre → contenido
+   ========================================================= */
+body.experience-staged{overflow-x:hidden}
+
+/* Después de la contraseña solo se muestra la portada con la rosa. */
+body.experience-staged.stage-prologue .envelope-scene,
+body.experience-staged.stage-prologue main > .chapter,
+body.experience-staged.stage-prologue #mirrorScene{
+  display:none!important;
+}
+
+/* Después de tocar la rosa se muestra el sobre, pero no el contenido. */
+body.experience-staged.stage-envelope main > .chapter,
+body.experience-staged.stage-envelope #mirrorScene{
+  display:none!important;
+}
+body.experience-staged.stage-envelope .envelope-scene{
+  display:flex!important;
+}
+
+/* Tras abrir el sobre se revela el recorrido completo. */
+body.experience-staged.stage-content .envelope-scene,
+body.experience-staged.stage-content main > .chapter{
+  display:flex;
+}
+body.experience-staged.stage-content .letter-section,
+body.experience-staged.stage-content .memory-desk,
+body.experience-staged.stage-content .new-memories,
+body.experience-staged.stage-content .quiet-message,
+body.experience-staged.stage-content .night{
+  display:block;
+}
+body.experience-staged.stage-content .wishes,
+body.experience-staged.stage-content .ribbon,
+body.experience-staged.stage-content .bloom{
+  display:flex;
+}
+
+/* El inicio depende exclusivamente de la rosa. */
+.start-experience{display:none!important}
+.first-rose{z-index:30}
+
+/* Mientras el acceso o la fecha estén bloqueados, nada del recorrido puede verse ni desplazarse. */
+body.access-locked main,
+body.access-locked .music,
+body.access-locked .progress,
+body.access-locked #fx,
+body.access-locked #globalFx{visibility:hidden!important}
+body.date-locked:not(.access-locked) main,
+body.date-locked:not(.access-locked) .music,
+body.date-locked:not(.access-locked) .progress{visibility:hidden!important}

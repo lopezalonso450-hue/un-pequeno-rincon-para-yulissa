@@ -26,11 +26,6 @@ function accessParticleBurst(count=48){
   },i*18);
 }
 
-function removeDateGateAfterPassword(){
-  try{clearInterval(gateTimer)}catch(e){}
-  document.body.classList.remove('date-locked');
-  if(gate){gate.classList.add('unlocked');setTimeout(()=>gate.remove(),250)}
-}
 
 async function unlockAccess(){
   if(accessBusy)return;
@@ -39,12 +34,19 @@ async function unlockAccess(){
   accessGate.classList.add('success');
   lockWrap.classList.add('open');
   accessParticleBurst(70);
-  removeDateGateAfterPassword();
+
+  // La contraseña únicamente abre la puerta de acceso.
+  // No inicia la música ni revela la carta o el resto de la página.
   document.body.classList.remove('access-locked');
-  // La pulsación del botón cuenta como interacción del usuario y permite iniciar el audio.
-  try{await beginExperience()}catch(e){}
+  document.body.classList.add('experience-staged','stage-prologue');
+  document.body.classList.remove('stage-envelope','stage-content');
+  try{song.pause();song.currentTime=0}catch(e){}
+
   setTimeout(()=>accessGate.classList.add('leaving'),650);
-  setTimeout(()=>accessGate.remove(),1750);
+  setTimeout(()=>{
+    accessGate.remove();
+    window.scrollTo({top:0,behavior:'instant'});
+  },1750);
 }
 
 if(accessForm){
@@ -154,10 +156,28 @@ function fadeTo(target,duration=1300){clearInterval(fadeTimer);const start=song.
 async function playMusic(){try{song.volume=0;await song.play();musicBtn.classList.add('show','playing');musicLabel.textContent='Pausar';fadeTo(.72,1800)}catch(e){musicBtn.classList.add('show');musicLabel.textContent='Reproducir'}}
 musicBtn.onclick=async()=>{if(song.paused){await song.play();fadeTo(.72,700);musicBtn.classList.add('playing');musicLabel.textContent='Pausar'}else{fadeTo(0,350);setTimeout(()=>song.pause(),380);musicBtn.classList.remove('playing');musicLabel.textContent='Reproducir'}};
 function welcomeConfetti(n=70){const colors=['#a855d6','#e1b7ff','#ffffff','#d5a85b','#7d2aa4'];for(let i=0;i<n;i++){setTimeout(()=>{const c=document.createElement('i');c.className='confetti-piece';c.style.setProperty('--x',Math.random()*100+'vw');c.style.setProperty('--c',colors[Math.floor(Math.random()*colors.length)]);c.style.setProperty('--t',(2.8+Math.random()*2.4)+'s');c.style.setProperty('--r',Math.random()*360+'deg');c.style.setProperty('--dx',(-100+Math.random()*200)+'px');document.body.appendChild(c);setTimeout(()=>c.remove(),6000)},i*16)}}
-async function beginExperience(){const top=$('#top');if(top.classList.contains('started'))return;top.classList.add('awake','started');welcomeConfetti(85);burst(24);await playMusic();setTimeout(()=>$('#envelopeScene').scrollIntoView({behavior:'smooth'}),950)}
-$('#startBtn').onclick=beginExperience;
-$('#firstRose').onclick=beginExperience;
-$('#openBtn').onclick=()=>{$('#openBtn').classList.add('open');playMusic();burst(42);setTimeout(()=>$('.hero').scrollIntoView({behavior:'smooth'}),1150)};
+async function beginExperience(){
+  const top=$('#top');
+  if(top.classList.contains('started'))return;
+  top.classList.add('awake','started');
+  document.body.classList.remove('stage-prologue');
+  document.body.classList.add('stage-envelope');
+  welcomeConfetti(85);
+  burst(24);
+  await playMusic();
+  setTimeout(()=>$('#envelopeScene').scrollIntoView({behavior:'smooth'}),950);
+}
+const firstRose=$('#firstRose');
+if(firstRose)firstRose.onclick=beginExperience;
+const openEnvelope=$('#openBtn');
+if(openEnvelope)openEnvelope.onclick=()=>{
+  openEnvelope.classList.add('open');
+  document.body.classList.remove('stage-envelope');
+  document.body.classList.add('stage-content');
+  playMusic();
+  burst(42);
+  setTimeout(()=>$('.hero').scrollIntoView({behavior:'smooth'}),1150);
+};
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.14});$$('.reveal').forEach(x=>io.observe(x));
 addEventListener('scroll',()=>{const h=document.documentElement;$('#progress').style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%'});
 function petal(force=false){if(!force&&scrollY<innerHeight)return;const p=document.createElement('span');p.className='fall';p.textContent=['🌸','🌹','💗','✦','❀'][Math.floor(Math.random()*5)];p.style.setProperty('--l',Math.random()*100+'vw');p.style.setProperty('--s',(12+Math.random()*18)+'px');p.style.setProperty('--d',(7+Math.random()*7)+'s');p.style.setProperty('--x',(-120+Math.random()*240)+'px');$('#fx').appendChild(p);setTimeout(()=>p.remove(),15000)}setInterval(()=>petal(),950);function burst(n){for(let i=0;i<n;i++)setTimeout(()=>petal(true),i*35)}
