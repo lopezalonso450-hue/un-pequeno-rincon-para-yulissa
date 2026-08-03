@@ -1,9 +1,0 @@
-CARTA PARA YULISSA — EXPERIENCIA FINAL
-
-1. Mantén juntos index.html, styles.css, script.js y la carpeta assets.
-2. Abre index.html en Chrome, Samsung Internet, Edge o Safari.
-3. La música comienza después de tocar la rosa y abrir el sobre, porque los navegadores bloquean el audio automático.
-4. Para publicarla, sube toda esta carpeta a Netlify Drop o GitHub Pages.
-5. Esta edición no incluye el video y utiliza las fotografías sin repetirlas.
-
-Archivos nuevos incluidos: 57040.jpg, 57049.jpg, 57051.jpg, 57053.jpg y 57055.jpg.
