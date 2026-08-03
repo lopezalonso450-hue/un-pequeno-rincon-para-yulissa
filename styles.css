@@ -680,3 +680,140 @@ main{overflow:visible!important}
   .envelope-scene{padding-block:100px!important}
   .envelope{width:min(38vw,420px)!important}
 }
+
+
+/* =========================================================
+   VERSIÓN FINAL — SOLO CONTRASEÑA, RESPONSIVE SIN HUECOS
+   Estas reglas tienen prioridad sobre ajustes anteriores.
+   ========================================================= */
+html,body{width:100%;min-height:100%;margin:0;overflow-x:hidden;background:#16090f}
+body{min-width:0}
+body.access-locked{overflow:hidden}
+.date-gate{display:none!important}
+body.date-locked{overflow:auto!important}
+
+/* Etapas del recorrido */
+body.experience-staged.stage-prologue .envelope-scene,
+body.experience-staged.stage-prologue main>.chapter,
+body.experience-staged.stage-prologue #mirrorScene{display:none!important}
+body.experience-staged.stage-envelope main>.chapter,
+body.experience-staged.stage-envelope #mirrorScene{display:none!important}
+body.experience-staged.stage-envelope .envelope-scene{display:flex!important}
+body.experience-staged.stage-content .envelope-scene{display:flex!important}
+body.experience-staged.stage-content .hero{display:grid!important}
+body.experience-staged.stage-content .letter-section{display:grid!important}
+body.experience-staged.stage-content .memory-desk,
+body.experience-staged.stage-content .ribbon,
+body.experience-staged.stage-content .new-memories{display:block!important}
+body.experience-staged.stage-content .wishes,
+body.experience-staged.stage-content .bloom,
+body.experience-staged.stage-content .night,
+body.experience-staged.stage-content .quiet-message{display:grid!important}
+
+/* Acceso */
+.access-gate{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 20%,#6e2d7b55,transparent 38%),linear-gradient(160deg,#130817,#2a0c2f 58%,#130817)}
+.access-card{width:min(92vw,560px);max-height:92dvh;overflow:auto;padding:clamp(28px,5vw,48px);border-radius:28px;text-align:center}
+
+/* Portada: compacta, centrada y sin vacío vertical */
+.prologue{
+  position:relative!important;
+  width:100%!important;
+  min-height:100svh!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:clamp(22px,4vh,38px)!important;
+  padding:max(32px,env(safe-area-inset-top)) clamp(16px,4vw,48px) max(34px,env(safe-area-inset-bottom))!important;
+  overflow:hidden!important;
+}
+.prologue-copy,.welcome-card{position:relative!important;inset:auto!important;width:min(92vw,700px)!important;margin:0!important;padding:clamp(24px,4vw,38px)!important}
+.prologue-copy h1{font-size:clamp(4.8rem,15vw,8.5rem)!important;line-height:.82!important;margin:.08em 0!important}
+.prologue-copy p{font-size:clamp(1.08rem,3.2vw,1.55rem)!important;line-height:1.35!important}
+.first-rose{position:relative!important;inset:auto!important;display:grid!important;place-items:center!important;gap:7px!important;margin:0!important;padding:8px 18px!important;min-width:190px!important;min-height:110px!important}
+.first-rose span{font-size:clamp(4.2rem,11vw,5.5rem)!important}
+.first-rose small{font-size:clamp(.72rem,1.7vw,.9rem)!important;line-height:1.35!important;white-space:normal!important}
+
+/* Sobre: una sola columna, centrado, dimensiones consistentes */
+.envelope-scene{
+  position:relative!important;
+  width:100%!important;
+  min-height:100svh!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:clamp(24px,4vh,38px)!important;
+  padding:max(52px,env(safe-area-inset-top)) clamp(16px,5vw,70px) max(52px,env(safe-area-inset-bottom))!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+.envelope-scene .preline,.envelope-scene .hint{position:relative!important;inset:auto!important;transform:none!important;width:min(92vw,620px)!important;margin:0 auto!important;text-align:center!important;writing-mode:horizontal-tb!important}
+.envelope-scene .preline{font-size:clamp(1.35rem,3vw,1.85rem)!important;line-height:1.35!important}
+.envelope-scene .hint{font-size:clamp(.72rem,1.5vw,.9rem)!important;line-height:1.45!important;letter-spacing:.13em!important}
+.envelope{
+  position:relative!important;
+  inset:auto!important;
+  width:min(82vw,410px)!important;
+  height:auto!important;
+  aspect-ratio:1.53/1!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  flex:0 0 auto!important;
+}
+.envelope .paper{font-size:clamp(1.7rem,6vw,2.35rem)!important}
+.envelope.open .paper{transform:translateY(clamp(-88px,-15vw,-68px))!important}
+.envelope .wax{width:58px!important;height:58px!important}
+
+/* Contenido general */
+main,main>section{width:100%!important;max-width:none!important;margin:0!important}
+.chapter{min-height:auto!important}
+.hero{min-height:100svh!important;padding:clamp(70px,10vh,120px) clamp(18px,7vw,100px)!important;gap:clamp(34px,6vw,90px)!important}
+.letter-section,.memory-desk,.wishes,.new-memories,.quiet-message,.bloom,.night{padding-left:clamp(16px,6vw,90px)!important;padding-right:clamp(16px,6vw,90px)!important}
+
+@media(max-width:820px){
+  .hero{grid-template-columns:1fr!important;text-align:center!important}
+  .hero-image{justify-self:center!important;max-width:min(86vw,520px)!important}
+  .hero-copy{justify-self:center!important}
+  .collage{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important}
+  .photo{grid-column:auto!important;margin:0!important;transform:rotate(var(--tilt,0deg))!important}
+  .photo:nth-child(odd){--tilt:-1.5deg}.photo:nth-child(even){--tilt:1.5deg}
+  .p6{grid-column:1/-1!important;width:min(78%,360px)!important;justify-self:center!important}
+}
+
+@media(max-width:560px){
+  .prologue{gap:20px!important;padding:34px 12px!important}
+  .welcome-card{width:94vw!important;padding:24px 15px!important;border-radius:22px!important}
+  .prologue-copy h1{font-size:clamp(4.7rem,20vw,6.2rem)!important}
+  .first-rose{min-height:100px!important;min-width:165px!important}
+  .first-rose span{font-size:4.2rem!important}
+
+  .envelope-scene{gap:22px!important;padding:48px 14px!important}
+  .envelope-scene .preline{font-size:1.38rem!important;width:90vw!important}
+  .envelope{width:min(82vw,340px)!important}
+  .envelope-scene .hint{width:90vw!important;font-size:.72rem!important}
+
+  .hero{padding:68px 16px!important}
+  .hero-image img{border-width:9px!important}
+  .hero h2{font-size:clamp(2.7rem,12vw,3.4rem)!important}
+  .letter-section{padding-top:70px!important;padding-bottom:70px!important}
+  .letter{width:100%!important;padding:42px 22px!important;font-size:1.07rem!important;line-height:1.72!important}
+  .memory-desk{padding-top:72px!important;padding-bottom:100px!important}
+  .collage{grid-template-columns:1fr!important;gap:26px!important;width:100%!important}
+  .photo,.p6{width:min(88vw,390px)!important;justify-self:center!important}
+  .wishes{padding-top:72px!important;padding-bottom:72px!important}
+  .wish{font-size:1.42rem!important;padding:18px 5px!important}
+  .ribbon figure{min-width:84vw!important}
+  .ribbon img{height:min(58vh,520px)!important}
+  .book-page{flex-basis:84vw!important}
+  .book-page img{height:min(58vh,560px)!important}
+  .night-copy{margin-top:150px!important}
+}
+
+@media(min-width:1100px){
+  .prologue{min-height:100vh!important}
+  .envelope-scene{min-height:100vh!important}
+  .envelope{width:min(34vw,420px)!important}
+}

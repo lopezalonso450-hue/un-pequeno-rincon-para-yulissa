@@ -66,83 +66,6 @@ if(accessForm){
   accessInput.addEventListener('input',()=>{accessError.textContent='';accessInput.value=accessInput.value.replace(/\D/g,'').slice(0,4)});
 }
 
-// Bloqueo por fecha: 19 de agosto de 2026, 00:00 (hora del centro de México).
-const BIRTHDAY_UNLOCK = new Date('2026-08-19T00:00:00-06:00').getTime();
-const gate = document.querySelector('#dateGate');
-const previewUnlocked = new URLSearchParams(location.search).get('preview') === '1';
-let gateTimer;
-function setCounter(id,value){const el=document.querySelector(id);if(el)el.textContent=String(value).padStart(2,'0')}
-function releaseBirthdayGate(){
-  if(!gate)return;
-  clearInterval(gateTimer);
-  gate.classList.add('birthday');
-  document.body.classList.remove('date-locked');
-  try{burst(70)}catch(e){}
-  setTimeout(()=>gate.classList.add('unlocked'),900);
-  setTimeout(()=>gate.remove(),2200);
-}
-function updateBirthdayGate(){
-  if(!gate)return;
-  const remaining=BIRTHDAY_UNLOCK-Date.now();
-  if(previewUnlocked||remaining<=0){releaseBirthdayGate();return}
-  const days=Math.floor(remaining/86400000);
-  const hours=Math.floor(remaining%86400000/3600000);
-  const minutes=Math.floor(remaining%3600000/60000);
-  const seconds=Math.floor(remaining%60000/1000);
-  setCounter('#countDays',days);setCounter('#countHours',hours);setCounter('#countMinutes',minutes);setCounter('#countSeconds',seconds);
-}
-updateBirthdayGate();
-if(gate&&!previewUnlocked&&Date.now()<BIRTHDAY_UNLOCK)gateTimer=setInterval(updateBirthdayGate,1000);
-
-// Flores, corazones y mensajes interactivos mientras la sorpresa permanece bloqueada.
-const gateMessages=[
-  'Ten paciencia… lo bonito también sabe esperar 💜',
-  'Todavía no… pero falta cada vez menos 🌸',
-  'Una sorpresa especial está floreciendo para ti 🌹',
-  'Guarda un poquito de curiosidad para el 19 de agosto ✨',
-  'La espera también forma parte de la sorpresa 💗',
-  'Vuelve pronto… este rincón ya casi despierta 🦋'
-];
-let lastGateTouch=0, gateMessageTimer;
-function makeGateFloater(){
-  if(!gate || gate.classList.contains('unlocked'))return;
-  const layer=document.querySelector('#gateFloaters');if(!layer)return;
-  const el=document.createElement('span');
-  el.className='gate-floater';
-  el.textContent=['💜','🌸','🌹','💗','🦋','✦'][Math.floor(Math.random()*6)];
-  el.style.setProperty('--left',Math.random()*100+'vw');
-  el.style.setProperty('--size',(15+Math.random()*18)+'px');
-  el.style.setProperty('--duration',(7+Math.random()*6)+'s');
-  el.style.setProperty('--drift',(-90+Math.random()*180)+'px');
-  layer.appendChild(el);setTimeout(()=>el.remove(),14000);
-}
-function gateTouchEffect(x,y){
-  const msg=document.querySelector('#gateTouchMessage');
-  if(msg){
-    clearTimeout(gateMessageTimer);
-    msg.textContent=gateMessages[Math.floor(Math.random()*gateMessages.length)];
-    msg.classList.remove('show');void msg.offsetWidth;msg.classList.add('show');
-    gateMessageTimer=setTimeout(()=>msg.classList.remove('show'),2600);
-  }
-  for(let i=0;i<8;i++)setTimeout(()=>{
-    const el=document.createElement('span');el.className='gate-touch-pop';
-    el.textContent=['💜','🌸','🌹','💗','✨'][Math.floor(Math.random()*5)];
-    el.style.left=x+'px';el.style.top=y+'px';
-    el.style.setProperty('--size',(16+Math.random()*16)+'px');
-    el.style.setProperty('--dx',(-75+Math.random()*150)+'px');
-    document.body.appendChild(el);setTimeout(()=>el.remove(),1800);
-  },i*35);
-}
-if(gate&&!previewUnlocked&&Date.now()<BIRTHDAY_UNLOCK){
-  for(let i=0;i<12;i++)setTimeout(makeGateFloater,i*280);
-  setInterval(makeGateFloater,780);
-  gate.addEventListener('pointerdown',e=>{
-    const now=Date.now();if(now-lastGateTouch<450)return;lastGateTouch=now;
-    gateTouchEffect(e.clientX,e.clientY);
-  });
-}
-
-
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];const song=$('#song'),musicBtn=$('#musicBtn'),musicLabel=$('#musicLabel');let fadeTimer;
 // Al pulsar “Volver a vivirlo”, la portada reaparece sin mostrar otra vez el botón Comenzar.
 const replayWithoutStart=sessionStorage.getItem('yulissaReplayWithoutStart')==='1';
@@ -314,7 +237,7 @@ if(finalBirthdayTitle){
 
   // Captura el toque antes que cualquier elemento de la pantalla bloqueada.
   document.addEventListener('pointerdown', (ev) => {
-    if (!document.body.classList.contains('date-locked')) return;
+    if (document.body.classList.contains('access-locked')) return;
     frontBurst(ev.clientX, ev.clientY, 16);
     showToast(patienceMessages[Math.floor(Math.random()*patienceMessages.length)]);
   }, true);
