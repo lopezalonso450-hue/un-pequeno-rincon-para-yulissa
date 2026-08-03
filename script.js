@@ -1,5 +1,5 @@
 // Acceso con contraseña. Esta capa aparece antes que cualquier otro contenido.
-const ACCESS_PASSWORD = '1908';
+const ACCESS_PASSWORD = 'Yulissa1908';
 const accessGate = document.querySelector('#accessGate');
 const accessForm = document.querySelector('#accessForm');
 const accessInput = document.querySelector('#accessPassword');
@@ -54,7 +54,7 @@ if(accessForm){
   accessForm.addEventListener('submit',e=>{
     e.preventDefault();
     if(accessBusy)return;
-    if((accessInput.value||'').trim()===ACCESS_PASSWORD){
+    if((accessInput.value||'').trim().toLowerCase()===ACCESS_PASSWORD.toLowerCase()){
       unlockAccess();
     }else{
       accessError.textContent='Contraseña incorrecta. Inténtalo nuevamente.';
@@ -63,7 +63,7 @@ if(accessForm){
       setTimeout(()=>accessGate.classList.remove('shake'),520);
     }
   });
-  accessInput.addEventListener('input',()=>{accessError.textContent='';accessInput.value=accessInput.value.replace(/\D/g,'').slice(0,4)});
+  accessInput.addEventListener('input',()=>{accessError.textContent='';});
 }
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];const song=$('#song'),musicBtn=$('#musicBtn'),musicLabel=$('#musicLabel');let fadeTimer;
@@ -234,13 +234,6 @@ if(finalBirthdayTitle){
     toast.classList.add('show');
     toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
   }
-
-  // Captura el toque antes que cualquier elemento de la pantalla bloqueada.
-  document.addEventListener('pointerdown', (ev) => {
-    if (document.body.classList.contains('access-locked')) return;
-    frontBurst(ev.clientX, ev.clientY, 16);
-    showToast(patienceMessages[Math.floor(Math.random()*patienceMessages.length)]);
-  }, true);
 
   function grandCelebration(count=150) {
     for (let i=0;i<count;i++) {
