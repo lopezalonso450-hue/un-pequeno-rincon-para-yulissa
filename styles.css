@@ -507,3 +507,176 @@ dialog img{max-width:100%;max-height:68dvh;object-fit:contain}
   .access-card{max-height:96dvh;padding-top:18px;padding-bottom:18px}.lock-wrap{transform:scale(.68);height:96px}.access-card h1{font-size:3.2rem}.access-copy{margin-bottom:14px}.access-hint{display:none}
   .gate-card{max-height:96dvh;padding-top:17px!important;padding-bottom:18px!important}.gate-rose{font-size:3.25rem!important}.gate-card h1{font-size:3.65rem!important}.gate-copy{font-size:1rem!important;margin-bottom:10px!important}.countdown{margin:12px auto!important}.gate-date{margin-top:10px!important}
 }
+
+/* =========================================================
+   CORRECCIÓN RESPONSIVE DEFINITIVA
+   Ancho completo, portada compacta y sobre centrado
+   ========================================================= */
+html,body{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow-x:clip!important;
+}
+body,main,main>section,.prologue,.envelope-scene{
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+}
+main{overflow:visible!important}
+#fx,#globalFx.global-fx{width:100%!important;max-width:100%!important}
+
+/* Portada: todos los elementos participan en el flujo para evitar vacíos. */
+.prologue{
+  min-height:100svh!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:clamp(24px,5vh,48px)!important;
+  padding:clamp(42px,8vh,90px) clamp(18px,5vw,70px)!important;
+  text-align:center!important;
+}
+.prologue-copy,.welcome-card{
+  position:relative!important;
+  inset:auto!important;
+  width:min(92%,720px)!important;
+  max-width:720px!important;
+  margin:0 auto!important;
+  flex:0 0 auto!important;
+}
+.first-rose{
+  position:relative!important;
+  inset:auto!important;
+  bottom:auto!important;
+  left:auto!important;
+  right:auto!important;
+  margin:0 auto!important;
+  min-width:190px!important;
+  min-height:112px!important;
+  padding:8px 18px!important;
+  flex:0 0 auto!important;
+}
+.first-rose span{font-size:clamp(4rem,12vw,5.6rem)!important}
+.first-rose small{font-size:clamp(.72rem,2vw,.9rem)!important;white-space:normal!important}
+
+/* Sobre: texto arriba, sobre al centro y ayuda abajo. */
+.envelope-scene{
+  min-height:100svh!important;
+  height:auto!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto auto!important;
+  place-items:center!important;
+  align-content:center!important;
+  justify-content:stretch!important;
+  row-gap:clamp(24px,4vh,42px)!important;
+  padding:clamp(64px,10vh,120px) clamp(18px,6vw,80px)!important;
+  text-align:center!important;
+}
+.preline,.hint{
+  position:relative!important;
+  inset:auto!important;
+  transform:none!important;
+  width:min(92%,620px)!important;
+  max-width:620px!important;
+  margin:0 auto!important;
+  text-align:center!important;
+  writing-mode:horizontal-tb!important;
+}
+.preline{
+  font-size:clamp(1.35rem,3.2vw,1.85rem)!important;
+  line-height:1.35!important;
+}
+.hint{
+  font-size:clamp(.72rem,1.6vw,.9rem)!important;
+  line-height:1.5!important;
+  letter-spacing:.14em!important;
+}
+.envelope{
+  position:relative!important;
+  inset:auto!important;
+  width:min(86vw,420px)!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:1.53 / 1!important;
+  margin:0 auto!important;
+  flex:none!important;
+}
+.envelope.open .paper{transform:translateY(clamp(-92px,-18vw,-72px))!important}
+
+/* Las secciones ocupan el ancho real y no dejan una franja negra lateral. */
+.hero,.letter-section,.memory-desk,.wishes,.ribbon,.new-memories,
+.quiet-message,.bloom,.night,.mirror-scene{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+}
+
+@media(max-width:820px){
+  .prologue{
+    min-height:100svh!important;
+    gap:28px!important;
+    padding:52px 16px 46px!important;
+  }
+  .welcome-card{
+    width:min(94%,620px)!important;
+    padding:30px 20px!important;
+  }
+  .prologue-copy h1{font-size:clamp(4.8rem,19vw,7.2rem)!important}
+  .envelope-scene{
+    min-height:100svh!important;
+    row-gap:28px!important;
+    padding:64px 16px 58px!important;
+  }
+  .envelope{width:min(84vw,380px)!important}
+  .preline{font-size:clamp(1.35rem,5vw,1.7rem)!important}
+  .hint{max-width:90%!important}
+}
+
+@media(max-width:560px){
+  .prologue{
+    justify-content:center!important;
+    padding:max(36px,env(safe-area-inset-top)) 14px max(34px,env(safe-area-inset-bottom))!important;
+    gap:24px!important;
+  }
+  .welcome-card{
+    width:94%!important;
+    padding:26px 16px!important;
+    border-radius:22px!important;
+  }
+  .prologue-copy h1{font-size:clamp(4.7rem,21vw,6.3rem)!important}
+  .prologue-copy p{font-size:clamp(1.08rem,4.6vw,1.3rem)!important}
+  .first-rose{min-height:104px!important;min-width:170px!important}
+  .first-rose span{font-size:4.35rem!important}
+
+  .envelope-scene{
+    padding:max(46px,env(safe-area-inset-top)) 14px max(42px,env(safe-area-inset-bottom))!important;
+    row-gap:24px!important;
+  }
+  .preline{
+    width:92%!important;
+    font-size:1.42rem!important;
+    line-height:1.4!important;
+  }
+  .envelope{
+    width:min(82vw,350px)!important;
+    max-width:350px!important;
+  }
+  .paper{font-size:clamp(1.75rem,8vw,2.35rem)!important}
+  .wax{width:56px!important;height:56px!important}
+  .hint{
+    width:92%!important;
+    font-size:.72rem!important;
+    letter-spacing:.12em!important;
+  }
+}
+
+@media(min-width:821px){
+  .prologue{padding-block:80px!important}
+  .envelope-scene{padding-block:100px!important}
+  .envelope{width:min(38vw,420px)!important}
+}
