@@ -76,3 +76,183 @@ body.date-locked{overflow:hidden}
 /* Repetición limpia: oculta el botón Comenzar al volver al inicio. */
 .replay-clean .start-experience{display:none!important}
 .replay-clean .first-rose{bottom:7vh}
+
+/* Detalles interactivos de la pantalla bloqueada */
+.gate-floaters{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.gate-floater{position:absolute;bottom:-50px;left:var(--left);font-size:var(--size);opacity:0;filter:drop-shadow(0 5px 10px #0005);animation:gateFloat var(--duration) ease-in forwards}
+@keyframes gateFloat{0%{opacity:0;transform:translate3d(0,20px,0) rotate(0deg) scale(.75)}15%{opacity:.72}80%{opacity:.48}100%{opacity:0;transform:translate3d(var(--drift),-112vh,0) rotate(280deg) scale(1.12)}}
+.gate-touch-hint{margin:.9rem 0 0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#e9c8f5;opacity:.72;animation:hintPulse 2.4s ease-in-out infinite}
+@keyframes hintPulse{50%{opacity:1;text-shadow:0 0 15px #d98cff}}
+.gate-touch-message{min-height:2.2rem;margin:.65rem 0 0;font:clamp(1.25rem,5vw,1.85rem) 'Great Vibes',cursive;color:#ffd8f7;text-shadow:0 0 18px #a74bd8;opacity:0;transform:translateY(8px);transition:.35s ease}
+.gate-touch-message.show{opacity:1;transform:none}
+.gate-touch-pop{position:fixed;z-index:10002;pointer-events:none;font-size:var(--size);animation:gatePop 1.6s ease-out forwards;filter:drop-shadow(0 4px 7px #0005)}
+@keyframes gatePop{0%{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(0)}25%{opacity:1;transform:translate(-50%,-70%) scale(1.15) rotate(18deg)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% - 130px)) scale(.7) rotate(150deg)}}
+
+/* Celebración del mensaje de cumpleaños */
+.celebration-pop{position:fixed;z-index:140;pointer-events:none;left:var(--left);top:105vh;font-size:var(--size);animation:celebrateRise var(--duration) cubic-bezier(.15,.7,.25,1) forwards;filter:drop-shadow(0 5px 8px #0005)}
+@keyframes celebrateRise{0%{opacity:0;transform:translateY(0) rotate(0) scale(.55)}12%{opacity:1}75%{opacity:.95}100%{opacity:0;transform:translate(var(--drift),-125vh) rotate(var(--rotation)) scale(1.15)}}
+.final-birthday-title{position:relative;animation:birthdayGlow 2.2s ease-in-out infinite}
+@keyframes birthdayGlow{50%{color:#fff0f8;text-shadow:0 0 12px #ff9bc5,0 0 35px #d963ff;transform:scale(1.025)}}
+.birthday.show h2{animation:birthdayEntrance 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes birthdayEntrance{0%{opacity:0;transform:scale(.7) translateY(18px)}60%{transform:scale(1.08) translateY(-4px)}100%{opacity:1;transform:none}}
+@media(max-width:520px){.gate-touch-message{min-height:2.6rem}.gate-touch-hint{font-size:.62rem}}
+
+/* =========================================================
+   EFECTOS SIEMPRE AL FRENTE
+   Flores, corazones, pétalos, globos y destellos se dibujan
+   sobre textos, fotografías y tarjetas sin bloquear toques.
+   ========================================================= */
+#fx{
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100svh!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+  z-index:10035!important;
+  isolation:isolate;
+}
+#fx .fall,
+.fall{
+  z-index:10036!important;
+  pointer-events:none!important;
+  opacity:.94;
+  filter:drop-shadow(0 4px 8px rgba(30,0,35,.42))!important;
+}
+
+/* La decoración de la pantalla bloqueada cruza por delante
+   del contador y del texto, manteniendo ambos legibles. */
+.date-gate .gate-card{position:relative;z-index:4!important}
+.date-gate .gate-floaters{
+  position:absolute!important;
+  inset:0!important;
+  z-index:8!important;
+  pointer-events:none!important;
+  overflow:hidden!important;
+}
+.date-gate .gate-floater{
+  z-index:9!important;
+  opacity:.92;
+  text-shadow:0 3px 10px rgba(0,0,0,.38);
+}
+.gate-touch-pop{
+  z-index:10060!important;
+  pointer-events:none!important;
+}
+
+/* Confeti y celebración por encima de toda la experiencia. */
+.confetti-piece{
+  z-index:10055!important;
+  pointer-events:none!important;
+}
+.celebration-pop{
+  z-index:10058!important;
+  pointer-events:none!important;
+  opacity:.98;
+  filter:drop-shadow(0 5px 10px rgba(25,0,35,.48))!important;
+}
+
+/* Conserva botones importantes utilizables aun con efectos encima. */
+.music,.progress{z-index:10070!important}
+
+@media (max-width:520px){
+  #fx .fall,.celebration-pop,.gate-floater{filter:drop-shadow(0 3px 6px rgba(20,0,30,.38))!important}
+}
+
+/* =========================================================
+   CAPA MÁGICA DEFINITIVA — SIEMPRE DELANTE DE TODA LA PÁGINA
+   ========================================================= */
+:root{--fx-top:2147483000}
+#globalFx.global-fx{
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100dvh!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+  z-index:var(--fx-top)!important;
+  isolation:isolate!important;
+  transform:translateZ(0)!important;
+  contain:layout style!important;
+}
+#globalFx .magic-item{
+  position:fixed!important;
+  left:var(--left,50vw)!important;
+  top:var(--top,-12vh)!important;
+  z-index:calc(var(--fx-top) + 1)!important;
+  pointer-events:none!important;
+  user-select:none!important;
+  will-change:transform,opacity!important;
+  font-size:var(--size,24px)!important;
+  line-height:1!important;
+  opacity:0;
+  filter:drop-shadow(0 4px 8px rgba(34,0,40,.5)) drop-shadow(0 0 8px rgba(255,135,235,.45));
+  animation:magicAcross var(--duration,9s) linear forwards!important;
+}
+#globalFx .magic-item.sparkle{filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 14px #c96bff)}
+#globalFx .magic-item.balloon{animation-name:balloonRise!important}
+#globalFx .magic-item.touch-burst{animation-name:touchBurstFront!important;top:var(--touch-y)!important;left:var(--touch-x)!important}
+@keyframes magicAcross{
+  0%{opacity:0;transform:translate3d(0,-10vh,0) rotate(0deg) scale(.65)}
+  8%{opacity:1}
+  88%{opacity:.95}
+  100%{opacity:0;transform:translate3d(var(--drift,40px),115vh,0) rotate(var(--spin,540deg)) scale(1.08)}
+}
+@keyframes balloonRise{
+  0%{opacity:0;transform:translate3d(0,110vh,0) rotate(-5deg) scale(.75)}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{opacity:0;transform:translate3d(var(--drift,30px),-25vh,0) rotate(7deg) scale(1.12)}
+}
+@keyframes touchBurstFront{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(0)}
+  16%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.35) rotate(var(--spin,180deg))}
+}
+.touch-toast{
+  position:fixed!important;
+  left:50%!important;
+  top:max(22px,env(safe-area-inset-top))!important;
+  transform:translate(-50%,-24px) scale(.94)!important;
+  width:min(88vw,540px)!important;
+  padding:14px 20px!important;
+  border:1px solid rgba(255,255,255,.45)!important;
+  border-radius:999px!important;
+  background:linear-gradient(135deg,rgba(85,17,105,.96),rgba(179,57,145,.94))!important;
+  color:#fff!important;
+  text-align:center!important;
+  font:600 clamp(.9rem,3.6vw,1.1rem)/1.35 Montserrat,sans-serif!important;
+  letter-spacing:.01em!important;
+  box-shadow:0 12px 38px rgba(30,0,35,.55),0 0 26px rgba(216,113,255,.35)!important;
+  backdrop-filter:blur(12px)!important;
+  z-index:2147483646!important;
+  pointer-events:none!important;
+  opacity:0!important;
+  transition:opacity .25s ease,transform .35s cubic-bezier(.2,.8,.2,1)!important;
+}
+.touch-toast.show{
+  opacity:1!important;
+  transform:translate(-50%,0) scale(1)!important;
+}
+/* Asegura que los efectos anteriores tampoco queden ocultos */
+#fx,.gate-floaters,.gate-touch-pop,.celebration-pop,.confetti-piece{
+  z-index:2147482500!important;
+  pointer-events:none!important;
+}
+#fx{position:fixed!important;inset:0!important;overflow:hidden!important}
+#fx .fall,.fall,.gate-floater,.gate-touch-pop,.celebration-pop,.confetti-piece{
+  position:fixed!important;
+  z-index:2147482501!important;
+  pointer-events:none!important;
+}
+/* La pantalla bloqueada recibe toques en toda su superficie */
+.date-gate{touch-action:manipulation!important}
+.date-gate .gate-card{position:relative;z-index:20!important}
+.gate-touch-message{z-index:30!important;position:relative!important}
+@media(max-width:720px){
+  #globalFx .magic-item{filter:drop-shadow(0 3px 6px rgba(34,0,40,.45)) drop-shadow(0 0 7px rgba(255,135,235,.35))}
+  .touch-toast{top:max(14px,env(safe-area-inset-top))!important;padding:12px 16px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #globalFx .magic-item{animation-duration:5s!important}
+}
