@@ -350,3 +350,160 @@ body.access-locked #globalFx{visibility:hidden!important}
 body.date-locked:not(.access-locked) main,
 body.date-locked:not(.access-locked) .music,
 body.date-locked:not(.access-locked) .progress{visibility:hidden!important}
+
+/* =========================================================
+   AJUSTE FINAL DE FLUIDEZ, TAMAÑOS Y POSICIONES
+   ========================================================= */
+html{scroll-padding-top:24px}
+body{font-size:16px;line-height:1.55}
+main{width:100%;overflow:hidden}
+button,input{font:inherit}
+
+/* El flujo por etapas no altera el tipo de layout original de cada sección. */
+body.experience-staged.stage-content .envelope-scene{display:grid!important}
+body.experience-staged.stage-content main>.chapter{display:block!important}
+body.experience-staged.stage-content .hero{display:grid!important}
+body.experience-staged.stage-content .letter-section{display:grid!important}
+body.experience-staged.stage-content .wishes{display:grid!important}
+body.experience-staged.stage-content .bloom{display:grid!important}
+body.experience-staged.stage-content .night{display:grid!important}
+body.experience-staged.stage-content .quiet-message{display:grid!important}
+body.experience-staged.stage-content .ribbon,
+body.experience-staged.stage-content .new-memories,
+body.experience-staged.stage-content .memory-desk{display:block!important}
+
+/* Acceso: centrado, amplio y sin elementos encimados. */
+.access-gate{padding:max(18px,env(safe-area-inset-top)) 18px max(18px,env(safe-area-inset-bottom))}
+.access-card{width:min(94vw,600px);max-height:94dvh;overflow:auto;padding:clamp(26px,5vw,52px) clamp(20px,5vw,48px);scrollbar-width:none}
+.access-card::-webkit-scrollbar{display:none}
+.lock-wrap{width:96px;height:116px;margin-bottom:16px;transform:scale(.92)}
+.access-card h1{font-size:clamp(3.1rem,10vw,5.8rem);line-height:.92;margin:.08em 0 .22em}
+.access-copy{font-size:clamp(1.08rem,3vw,1.38rem);margin-bottom:22px}
+.access-form{width:min(100%,450px);gap:12px}
+.access-form input,.access-form button{height:54px}
+
+/* Pantalla bloqueada: tarjeta legible y contador con aire. */
+.date-gate{padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));overflow:auto}
+.gate-card{width:min(94vw,680px)!important;max-height:94dvh;overflow:auto!important;padding:clamp(26px,5vw,54px) clamp(18px,5vw,48px)!important;border-radius:28px!important;scrollbar-width:none}
+.gate-card::-webkit-scrollbar{display:none}
+.gate-rose{font-size:clamp(3.5rem,10vw,5.4rem)!important;margin-bottom:8px!important}
+.gate-card h1{font-size:clamp(3.8rem,12vw,7rem)!important;line-height:.9!important;margin:.08em 0 .14em!important}
+.gate-copy{max-width:520px;margin:0 auto 20px!important;font-size:clamp(1.05rem,3.3vw,1.32rem)!important}
+.countdown{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px!important;margin:20px auto!important}
+.countdown div{min-width:0;padding:15px 7px!important}
+.countdown strong{font-size:clamp(1.55rem,6vw,2.65rem)!important}
+.countdown span{font-size:clamp(.55rem,2vw,.72rem)!important;letter-spacing:.05em!important}
+.gate-date{margin:18px 0 6px!important}.gate-note{margin-bottom:8px!important}
+.gate-touch-message{margin-top:8px!important}
+
+/* Portada: evita que la tarjeta y la rosa se monten. */
+.prologue{min-height:100dvh;padding:clamp(28px,6vh,70px) 18px 150px!important;align-content:center}
+.welcome-card{width:min(92vw,720px);padding:clamp(28px,6vw,58px);margin:auto}
+.prologue-copy h1{font-size:clamp(5rem,17vw,9rem);line-height:.85}
+.prologue-copy p{font-size:clamp(1.18rem,3.5vw,1.75rem)}
+.first-rose{bottom:max(28px,env(safe-area-inset-bottom))!important;min-width:180px;padding:8px 14px!important}
+.first-rose span{font-size:clamp(3.4rem,12vw,5rem)}
+.first-rose small{font-size:.72rem;line-height:1.35}
+
+/* Sobre: proporciones cómodas y separación vertical. */
+.envelope-scene{min-height:100dvh;padding:80px 20px 70px!important;align-content:center!important;gap:22px!important}
+.preline{margin:0 auto 18px!important;max-width:520px;font-size:clamp(1.25rem,4vw,1.65rem)}
+.envelope{width:min(84vw,390px)!important;height:min(56vw,250px)!important;min-height:210px}
+.hint{margin-top:18px!important}
+
+/* Secciones principales: anchura, respiración y escala coherentes. */
+.hero{min-height:auto!important;padding:clamp(80px,11vh,130px) clamp(22px,7vw,110px)!important;gap:clamp(34px,6vw,90px)!important}
+.hero-image{width:min(100%,520px)}
+.hero-copy{width:min(100%,580px)}
+.hero-copy h2{font-size:clamp(2.8rem,6vw,5.2rem);line-height:.98}
+.hero-copy p{font-size:clamp(1.15rem,2.2vw,1.4rem)}
+.letter-section{min-height:auto!important;padding:clamp(80px,11vh,140px) clamp(18px,6vw,90px)!important}
+.letter{width:min(100%,820px);padding:clamp(42px,7vw,88px)!important;font-size:clamp(1.15rem,2vw,1.32rem);line-height:1.85}
+.letter .hand{font-size:clamp(3.2rem,8vw,5rem)}
+.letter .big{font-size:clamp(1.45rem,3vw,1.85rem)}
+
+.memory-desk{padding:clamp(85px,11vh,140px) clamp(18px,5vw,80px) clamp(110px,14vh,170px)!important}
+.memory-desk header{max-width:760px}
+.memory-desk h2{font-size:clamp(2.8rem,7vw,5.4rem)}
+.collage{max-width:1180px;gap:clamp(22px,3vw,38px)!important;margin-top:clamp(55px,8vw,90px)!important}
+.photo{padding:14px 14px 42px!important}
+.photo figcaption{font-size:clamp(1.55rem,3vw,2rem)}
+
+.wishes{min-height:auto!important;padding:clamp(90px,12vh,150px) clamp(20px,8vw,130px)!important;gap:12px!important}
+.wish{width:min(100%,850px);margin:auto;padding:24px 12px!important;font-size:clamp(1.5rem,3.5vw,2.35rem)!important}
+
+.ribbon{padding:clamp(60px,8vh,95px) 0!important}
+.ribbon-track{gap:24px!important;padding-left:max(24px,8vw)!important;padding-right:max(24px,8vw)!important}
+.ribbon figure{min-width:min(76vw,370px)!important}
+.ribbon img{height:min(62vh,520px)!important}
+
+.new-memories{padding:clamp(85px,11vh,135px) 0 clamp(70px,9vh,110px)!important}
+.new-memories header{margin-bottom:clamp(38px,6vw,70px)!important}
+.memory-book{gap:clamp(24px,5vw,68px)!important;padding-top:24px!important;padding-bottom:60px!important}
+.book-page{flex-basis:min(82vw,460px)!important;padding:16px 16px 32px!important}
+.book-page img{height:min(64vh,650px)!important}
+.quiet-message{min-height:90dvh!important;padding:90px 20px!important}
+.quiet-card{width:min(100%,820px);padding:clamp(40px,7vw,82px)!important}
+
+.bloom{min-height:100dvh!important;padding:90px 22px!important}
+.bloom h2{font-size:clamp(3rem,8vw,5.6rem)}
+.rose{font-size:clamp(6rem,18vw,9rem)!important}
+.night{min-height:100dvh!important;padding:110px 22px 90px!important}
+.night-copy{width:min(100%,820px);margin-top:clamp(150px,23vh,240px)!important}
+.night-copy h2{font-size:clamp(2.7rem,7vw,5rem)}
+.constellation{font-size:clamp(4rem,13vw,8rem)!important;white-space:nowrap}
+.moon{width:clamp(95px,15vw,150px)!important;height:clamp(95px,15vw,150px)!important}
+
+.mirror-scene{padding:80px 20px!important;min-height:100dvh!important}
+.mirror-card{width:min(92vw,680px)!important;max-height:88dvh;overflow:auto}
+
+dialog{width:min(92vw,760px)!important;max-height:90dvh!important;padding:16px!important}
+dialog img{max-width:100%;max-height:68dvh;object-fit:contain}
+
+/* Efectos al frente, visibles pero sin tapar permanentemente el contenido. */
+#globalFx .magic-item{font-size:clamp(15px,var(--size,24px),34px)!important;opacity:0;mix-blend-mode:normal}
+#fx .fall,.fall{font-size:clamp(14px,var(--s,22px),32px)!important}
+
+@media(max-width:820px){
+  .hero{grid-template-columns:1fr!important;text-align:center}
+  .hero-image{justify-self:center!important;order:1}
+  .hero-copy{justify-self:center!important;order:2}
+  .scroll{display:none}
+  .frame-flower{right:-5px;bottom:-16px;font-size:4rem}
+  .botanical{font-size:4.5rem;opacity:.35}
+  .collage{grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start}
+  .photo{grid-column:auto!important;margin-top:0!important;transform:rotate(var(--tilt,0deg))!important}
+  .photo:nth-child(odd){--tilt:-2deg}.photo:nth-child(even){--tilt:2deg}
+  .p6{grid-column:1/-1!important;width:min(72%,360px);justify-self:center}
+}
+
+@media(max-width:560px){
+  body{font-size:15px}
+  .access-gate,.date-gate{align-items:center}
+  .access-card{width:94vw;padding:24px 18px 25px;border-radius:24px}
+  .lock-wrap{transform:scale(.78);margin-top:-10px;margin-bottom:0}
+  .access-gift{font-size:.88rem}.access-card h1{font-size:3.65rem}.access-copy{font-size:1.08rem}
+  .access-form{grid-template-columns:1fr!important}.access-form input,.access-form button{height:50px}
+  .gate-card{width:94vw!important;padding:24px 15px 26px!important;border-radius:23px!important}
+  .gate-card h1{font-size:4.25rem!important}.gate-kicker{font-size:.65rem!important}
+  .countdown{gap:6px!important}.countdown div{padding:12px 3px!important;border-radius:13px!important}
+  .countdown strong{font-size:1.55rem!important}.countdown span{font-size:.52rem!important}
+  .gate-date{font-size:1rem!important}.gate-note,.gate-touch-hint{font-size:.65rem!important}
+  .prologue{padding:25px 14px 145px!important}.welcome-card{width:93vw;padding:30px 18px;border-radius:24px}
+  .prologue-copy h1{font-size:5.6rem}.prologue-copy p{font-size:1.18rem}
+  .envelope-scene{padding:60px 14px!important}.envelope{width:88vw!important;height:220px!important}
+  .hero{padding:78px 18px!important}.hero-image img{border-width:9px}.hero-copy h2{font-size:3rem}
+  .letter-section{padding:74px 13px!important}.letter{padding:44px 24px!important;line-height:1.72}.letter:before{inset:9px}
+  .memory-desk{padding:78px 13px 110px!important}.collage{gap:18px!important}.photo{padding:9px 9px 32px!important}.photo figcaption{font-size:1.42rem}.p6{width:82%}
+  .wishes{padding:80px 15px!important}.wish{gap:15px!important;padding:21px 8px!important;font-size:1.48rem!important}.wish span{font-size:2rem}
+  .ribbon figure{min-width:82vw!important}.ribbon img{height:58vh!important}
+  .new-memories header{padding:0 18px!important}.new-memories header h2{font-size:3rem!important}.memory-book{padding-left:9vw!important;padding-right:9vw!important}.book-page{flex-basis:82vw!important}.book-page img{height:56vh!important}
+  .quiet-card{padding:40px 22px!important;border-radius:24px}.quiet-card h2{font-size:2.3rem}
+  .night-copy{margin-top:155px!important}.moon{right:18px!important;top:30px!important}.constellation{top:18%!important}
+  .music{right:10px!important;bottom:max(10px,env(safe-area-inset-bottom))!important;padding:7px 10px 7px 7px!important}.disc{width:31px;height:31px}
+}
+
+@media(max-height:700px) and (max-width:560px){
+  .access-card{max-height:96dvh;padding-top:18px;padding-bottom:18px}.lock-wrap{transform:scale(.68);height:96px}.access-card h1{font-size:3.2rem}.access-copy{margin-bottom:14px}.access-hint{display:none}
+  .gate-card{max-height:96dvh;padding-top:17px!important;padding-bottom:18px!important}.gate-rose{font-size:3.25rem!important}.gate-card h1{font-size:3.65rem!important}.gate-copy{font-size:1rem!important;margin-bottom:10px!important}.countdown{margin:12px auto!important}.gate-date{margin-top:10px!important}
+}

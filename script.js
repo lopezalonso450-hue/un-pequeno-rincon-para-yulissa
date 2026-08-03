@@ -207,7 +207,7 @@ $('#replayBtn').onclick=()=>{
   scrollTo({top:0,behavior:'smooth'});
   setTimeout(()=>location.reload(),900)
 };
-const canvas=$('#stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){const d=devicePixelRatio||1;canvas.width=canvas.clientWidth*d;canvas.height=canvas.clientHeight*d;ctx.setTransform(d,0,0,d,0,0);stars=Array.from({length:150},()=>({x:Math.random()*canvas.clientWidth,y:Math.random()*canvas.clientHeight,r:Math.random()*1.6+.25,a:Math.random(),v:Math.random()*.018+.004}))}resize();addEventListener('resize',resize);(function draw(){ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight);for(const s of stars){s.a+=s.v;if(s.a>1||s.a<.12)s.v*=-1;ctx.fillStyle=`rgba(255,255,255,${s.a})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}requestAnimationFrame(draw)})();// Nuevas páginas: cada fotografía guarda una frase y una pequeña reacción.
+const canvas=$('#stars'),ctx=canvas.getContext('2d');let stars=[];function resize(){const d=devicePixelRatio||1;canvas.width=canvas.clientWidth*d;canvas.height=canvas.clientHeight*d;ctx.setTransform(d,0,0,d,0,0);stars=Array.from({length:(innerWidth<700?80:120)},()=>({x:Math.random()*canvas.clientWidth,y:Math.random()*canvas.clientHeight,r:Math.random()*1.6+.25,a:Math.random(),v:Math.random()*.018+.004}))}resize();addEventListener('resize',resize);(function draw(){ctx.clearRect(0,0,canvas.clientWidth,canvas.clientHeight);for(const s of stars){s.a+=s.v;if(s.a>1||s.a<.12)s.v*=-1;ctx.fillStyle=`rgba(255,255,255,${s.a})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}requestAnimationFrame(draw)})();// Nuevas páginas: cada fotografía guarda una frase y una pequeña reacción.
 document.querySelectorAll('.book-page').forEach(page=>{
   page.addEventListener('click',()=>{
     const img=page.querySelector('img');
@@ -224,7 +224,7 @@ const finalBirthdayTitle=document.querySelector('#finalBirthdayTitle');
 if(finalBirthdayTitle){
   let finalCelebrated=false;
   const birthdayObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
-    if(entry.isIntersecting&&!finalCelebrated){finalCelebrated=true;birthdayCelebration(120);burst(55)}
+    if(entry.isIntersecting&&!finalCelebrated){finalCelebrated=true;birthdayCelebration(innerWidth<700?70:100);burst(innerWidth<700?28:42)}
   }),{threshold:.65});
   birthdayObserver.observe(finalBirthdayTitle);
 }
@@ -276,7 +276,7 @@ if(finalBirthdayTitle){
   }
 
   // Llenado inicial: los detalles se ven inmediatamente y en el centro, no solo en los bordes.
-  for (let i=0;i<26;i++) {
+  for (let i=0;i<(innerWidth<700?12:18);i++) {
     setTimeout(() => item(allIcons[Math.floor(Math.random()*allIcons.length)], {
       left:`${6+Math.random()*88}vw`,
       top:`${-5+Math.random()*80}vh`,
@@ -284,7 +284,7 @@ if(finalBirthdayTitle){
       size:`${17+Math.random()*25}px`
     }), i*70);
   }
-  const ambientTimer = setInterval(ambientOne, 360);
+  const ambientTimer = setInterval(ambientOne, innerWidth<700?900:650);
 
   function frontBurst(x, y, count=14) {
     for (let i=0;i<count;i++) {
